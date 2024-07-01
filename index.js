@@ -1,3 +1,4 @@
+require('dotenv').config(); // Cargar las variables de entorno desde .env
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -9,9 +10,10 @@ const PORT = process.env.PORT || 5000;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto_para_jwt';
 
 app.use(cors());
+
 app.use(express.json());
 
-const mongoURI = process.env.MONGO_URI || 'tu_mongo_uri';
+const mongoURI = process.env.MONGO_URI || 'mongodb+srv://miguelbermejo1:Hispalis3@vizzio.cshphnm.mongodb.net/?retryWrites=true&w=majority&appName=vizzio';
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -27,6 +29,18 @@ const UserSchema = new Schema({
     password: { type: String, required: true },
 });
 const User = mongoose.model('User', UserSchema);
+
+app.post('/register', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ email, password: hashedPassword });
+        await newUser.save();
+        res.status(201).json({ message: 'Usuario registrado' });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al registrar usuario' });
+    }
+});
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -45,8 +59,6 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Error al autenticar usuario' });
     }
 });
-
-
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
