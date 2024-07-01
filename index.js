@@ -46,9 +46,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/', (req, res) => {
-    res.send('API funcionando');
-});
+
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
