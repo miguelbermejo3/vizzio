@@ -9,10 +9,11 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const secretKey = 'tu_secreto_para_jwt';
-
 // Configuración de CORS
 app.use(cors({
-  origin: 'http://localhost:8100', // Permitir solicitudes solo desde este origen
+    origin: '*', // Aquí puedes especificar el origen permitido, por ejemplo: 'https://vizzio.vercel.app'
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
 }));
 app.use(express.json());
 
