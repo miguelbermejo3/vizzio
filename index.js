@@ -11,7 +11,7 @@ const secretKey = process.env.SECRET_KEY || 'tu_secreto_para_jwt';
 
 // Configurar CORS
 app.use(cors({
-    origin: ['http://localhost:8100'], // Reemplaza con tu dominio permitido
+    origin: ['http://localhost:8100/login'], // Reemplaza con tu dominio permitido
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
     allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
 }));
