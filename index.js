@@ -10,7 +10,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const secretKey = 'tu_secreto_para_jwt';
 
-app.use(cors());
+// Configuración de CORS
+app.use(cors({
+  origin: 'http://localhost:8100', // Permitir solicitudes solo desde este origen
+}));
 app.use(express.json());
 
 const mongoURI = 'mongodb+srv://miguelbermejo1:Hispalis3@vizzio.cshphnm.mongodb.net/?retryWrites=true&w=majority&appName=vizzio';
