@@ -1,4 +1,3 @@
-
 require('dotenv').config(); // Cargar las variables de entorno desde .env
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,16 +7,18 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const secretKey = 'tu_secreto_para_jwt';
-// Configuración de CORS
+const secretKey = process.env.SECRET_KEY || 'tu_secreto_para_jwt';
+
+// Configurar CORS
 app.use(cors({
-    origin: '*', // Aquí puedes especificar el origen permitido, por ejemplo: 'https://vizzio.vercel.app'
+    origin: ['http://localhost:8100'], // Reemplaza con tu dominio permitido
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
 }));
+
 app.use(express.json());
 
-const mongoURI = 'mongodb+srv://miguelbermejo1:Hispalis3@vizzio.cshphnm.mongodb.net/?retryWrites=true&w=majority&appName=vizzio';
+const mongoURI = process.env.MONGO_URI || 'tu_mongo_uri';
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
