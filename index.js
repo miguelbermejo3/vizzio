@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 5000;
 const secretKey = process.env.SECRET_KEY || 'tu_secreto_para_jwt';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8100'
+}));
 app.use(express.json());
 
 // Conexión a MongoDB
