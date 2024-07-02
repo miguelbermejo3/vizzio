@@ -1,10 +1,15 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-require('dotenv').config()
-user=process.env.user
-password=process.env.password
-db=process.env.db
+const mongoURI = process.env.MONGO_URI;
 
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log('Conectado a MongoDB');
+}).catch(err => {
+    console.log('Error al conectar a MongoDB:', err);
+});
 
-const URI="mongodb+srv://miguelbermejo1:Hispalis3@vizzio.cshphnm.mongodb.net/?retryWrites=true&w=majority&appName=vizzio"
-mongoose.connect(URI).then(db =>console.log('Conectado')).catch(err=> console.log(err))
+module.exports = mongoose;
